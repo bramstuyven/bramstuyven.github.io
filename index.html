@@ -60,8 +60,8 @@
 
   <!-- Pinky -->
   <g id="pinky" class="hover-group">
-    <polygon id="pinky-base" class="pinky" points="420,585 480,670 245,710 255,635" />
-    <polygon id="pinky-tip" class="pinky" points="255,635 245,710 100,590 135,560" />  
+    <polygon id="pinky-base" class="pinky" points="420,585 480,670 245,700 255,625" />
+    <polygon id="pinky-tip" class="pinky" points="255,625 245,700 100,590 135,560" />  
   </g>
 
   <!-- Thumb -->
@@ -111,14 +111,44 @@
         "base":{
           "obj":document.getElementById("ring-base"),
           "default":"445,515 480,670 195,535 225,460",
-          "stretch":"445,515 480,670 195,535 225,460",
-          "fist":"445,515 480,670 195,535 225,460",
+          "stretch":"445,515 480,670 185,555 215,480",
+          "fist":"445,515 480,670 185,555 215,480",
         },
         "tip":{
           "obj":document.getElementById("ring-tip"),
           "default":"225,460 195,535 75,360 110,335",
-          "stretch":"225,460 195,535 75,360 110,335",
-          "fist":"225,460 195,535 75,360 110,335",
+          "stretch":"215,480 185,555 40,420 65,385",
+          "fist":"215,480 185,555 40,420 65,385",
+        },
+     },
+     "pinky":{
+        "finger":document.getElementById("pinky"),
+        "base":{
+          "obj":document.getElementById("pinky-base"),
+          "default":"420,585 480,670 245,700 255,625",
+          "stretch":"420,585 480,670 245,710 255,635",
+          "fist":"420,585 480,670 245,710 255,635",
+        },
+        "tip":{
+          "obj":document.getElementById("pinky-tip"),
+          "default":"255,625 245,700 100,590 135,560",
+          "stretch":"255,635 245,710 90,650 105,610",
+          "fist":"255,635 245,710 90,650 105,610",
+        },
+     },
+     "thumb":{
+        "finger":document.getElementById("thumb"),
+        "base":{
+          "obj":document.getElementById("thumb-base"),
+          "default":"790,465 570,420 615,290 725,265",
+          "stretch":"790,465 570,420 625,285 740,265",
+          "fist":"790,465 570,420 625,285 740,265",
+        },
+        "tip":{
+          "obj":document.getElementById("thumb-tip"),
+          "default":"725,265 615,290 550,165 590,130",
+          "stretch":"740,265 625,285 585,155 630,120",
+          "fist":"740,265 625,285 585,155 630,120",
         },
      }
   };
