@@ -1,1 +1,154 @@
-Hey
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+  <meta charset="UTF-8">
+  <title>Polygon Hand</title>
+  <style>
+    svg {
+      width: 800px;
+      height: 800px;
+      background-color: #fff;
+      font-family: sans-serif;
+    }
+
+    polygon {
+      stroke-width: 2;
+      transition: fill 0.3s ease, stroke 0.3s ease;
+      cursor: pointer;
+    }
+
+    .thumb { fill: #e54; stroke: #e54; }
+    .index { fill: #e22; stroke: #e22; }
+    .mid   { fill: #e33; stroke: #e33; }
+    .ring  { fill: #e54; stroke: #e54; }
+    .pinky { fill: #e65; stroke: #e65; }
+    .palm  { fill: #e44; stroke: #e44; }
+    .arm   { fill: #e54; stroke: #e54; }
+
+
+    polygon:hover {
+      fill: #ff7f50;
+      stroke: #ff7f50;
+    }
+
+  </style>
+</head>
+<body>
+
+<svg viewBox="0 0 1000 1000"> <!--1250,1000 for desktop, 1000,1250 for phone-->
+  <!-- Arm -->
+  <polygon id="arm" class="arm" points="885,620 1250,1000 1000,1250 640,740" />
+
+  <!-- Index Finger -->
+  <g id="index" class="hover-group">
+    <polygon id="index-base" class="index" points="570,420 445,515 365,330 430,315" />
+    <polygon id="index-tip" class="index" points="430,315 365,330 315,180 355,165" />
+  </g>
+
+  <!-- Middle Finger -->
+  <g id="middle" class="hover-group">
+    <polygon id="middle-base" class="mid" points="490,454 420,585 230,420 275,370" />
+    <polygon id="middle-tip" class="mid" points="275,370 230,420 130,250 170,230" />
+  </g>
+
+  <!-- Ring Finger -->
+  <g id="ring" class="hover-group">
+    <polygon id="ring-base" class="ring" points="445,515 480,670 195,535 225,460" />
+    <polygon id="ring-tip" class="ring" points="225,460 195,535 75,360 110,335" />
+  </g>
+
+  <!-- Pinky -->
+  <g id="pinky" class="hover-group">
+    <polygon id="pinky-base" class="pinky" points="420,585 480,670 245,710 255,635" />
+    <polygon id="pinky-tip" class="pinky" points="255,635 245,710 100,590 135,560" />  
+  </g>
+
+  <!-- Thumb -->
+  <g id="thumb" class="hover-group">
+    <polygon id="thumb-base" class="thumb" points="790,465 570,420 615,290 725,265" />
+    <polygon id="thumb-tip" class="thumb" points="725,265 615,290 550,165 590,130" />
+  </g>
+
+  <!-- Palm -->
+  <polygon id="palm" class="palm" points="885,620 640,740 480,670 420,585 445,515 490,454 570,420 790,465 865,560" />
+</svg>
+
+<script>
+  fingers={
+     "index":{
+        "finger":document.getElementById("index"),
+        "base":{
+          "obj":document.getElementById("index-base"),
+          "default":"570,420 445,515 365,330 430,315",
+          "stretch":"570,420 445,515 350,350 415,330",
+          "fist":"570,420 445,515 365,330 430,315",
+        },
+        "tip":{
+          "obj":document.getElementById("index-tip"),
+          "default":"430,315 365,330 315,180 355,165",
+          "stretch":"415,330 350,350 275,205 315,185",
+          "fist":"430,315 365,330 315,180 355,165",
+        },
+     },
+     "middle":{
+        "finger":document.getElementById("middle"),
+        "base":{
+          "obj":document.getElementById("middle-base"),
+          "default":"490,454 420,585 230,420 275,370",
+          "stretch":"490,454 420,585 220,430 265,380",
+          "fist":"490,454 420,585 220,430 275,370",
+        },
+        "tip":{
+          "obj":document.getElementById("middle-tip"),
+          "default":"275,370 230,420 130,250 170,230",
+          "stretch":"265,380 220,430 100,290 135,265",
+          "fist":"275,370 220,430 130,250 170,230",
+        },
+     },
+     "ring":{
+        "finger":document.getElementById("ring"),
+        "base":{
+          "obj":document.getElementById("ring-base"),
+          "default":"445,515 480,670 195,535 225,460",
+          "stretch":"445,515 480,670 195,535 225,460",
+          "fist":"445,515 480,670 195,535 225,460",
+        },
+        "tip":{
+          "obj":document.getElementById("ring-tip"),
+          "default":"225,460 195,535 75,360 110,335",
+          "stretch":"225,460 195,535 75,360 110,335",
+          "fist":"225,460 195,535 75,360 110,335",
+        },
+     }
+  };
+
+  for (const [finger, source] of Object.entries(fingers)) {
+    console.log(finger)
+    source['finger'].addEventListener("mouseenter", () => {
+      gsap.to(source['base']['obj'], {
+        duration: 0.2,
+        attr: { points: source['base']['stretch'] },
+        ease: "power1.out"
+      });
+      gsap.to(source['tip']['obj'], {
+        duration: 0.2,
+        attr: { points: source['tip']['stretch'] },
+        ease: "power1.out"
+      });
+    });
+
+    source['finger'].addEventListener("mouseleave", () => {
+      gsap.to(source['base']['obj'], {
+        duration: 0.2,
+        attr: { points: source['base']['default'] },
+        ease: "power1.in"
+      });
+      gsap.to(source['tip']['obj'], {
+        duration: 0.2,
+        attr: { points: source['tip']['default'] },
+        ease: "power1.in"
+      });
+    });
+  }
+</script>
