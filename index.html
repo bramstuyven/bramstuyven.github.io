@@ -81,12 +81,30 @@
       }
     }
 
+    .font-stretch {
+      transform: scale(1,.5);
+    }
+
   </style>
 </head>
 <body>
 
   <div class="container">
     <svg id="hand" viewBox="-200 -400 1500 1800" xmlns="http://www.w3.org/2000/svg"> <!--1250,1000 for desktop, 1000,1250 for phone-->
+
+      <text x="630" y="500" text-anchor="middle" font-size="60" fill="white" stroke="black" stroke-width="0.2vw">
+        <tspan id="main-text-bot">Bram Stuyven</tspan>
+          <animateTransform
+            attributeName="transform"
+            type="translate"
+            values="0,-20; 0,20; 0,-20;"
+            dur="3s"
+            repeatCount="indefinite"
+            calcMode="spline"
+            keyTimes="0; 0.5; 1"
+            keySplines="0.42 0 0.58 1; 0.42 0 0.58 1"/>
+      </text>
+
       <!-- Arm -->
       <polygon id="arm" class="arm" points="885,620 2100,1800 1750,2100 640,740" />
 
@@ -122,6 +140,34 @@
 
       <!-- Palm -->
       <polygon id="palm" class="palm" points="885,620 640,740 480,670 420,585 445,515 490,454 570,420 670,430 830,500" />
+
+      <text x="630" y="500" text-anchor="middle" font-size="60" fill="white">
+        <tspan id="main-text">Bram Stuyven</tspan>
+          <animateTransform
+            attributeName="transform"
+            type="translate"
+            values="0,-20; 0,20; 0,-20;"
+            dur="3s"
+            repeatCount="indefinite"
+            calcMode="spline"
+            keyTimes="0; 0.5; 1"
+            keySplines="0.42 0 0.58 1; 0.42 0 0.58 1"/>
+      </text>
+      
+      <g id="text-wrapper" transform="scale(1, 0.5)">
+        <text x="630" y="1100" text-anchor="middle" font-size="60" fill="black">
+          <tspan id="main-text-shadow">Bram Stuyven</tspan>
+            <animateTransform
+              attributeName="transform"
+              type="translate"
+              values="0,-20; 0,20; 0,-20;"
+              dur="3s"
+              repeatCount="indefinite"
+              calcMode="spline"
+              keyTimes="0; 0.5; 1"
+              keySplines="0.42 0 0.58 1; 0.42 0 0.58 1"/>
+        </text>
+      </g>
     </svg>
   </div>
   
@@ -195,9 +241,26 @@
      }
   };
 
+  const text = document.getElementById("main-text");
+  const text_bot = document.getElementById("main-text-bot");
+  const text_shadow = document.getElementById("main-text-shadow");
+
+  const fingerMessages = {
+    thumb: "Professional",
+    index: "Goals",
+    middle: "Music",
+    ring: "Theatre",
+    pinky: "Honorable Mentions",
+  };
+
   for (const [finger, source] of Object.entries(fingers)) {
     console.log(finger)
     source['finger'].addEventListener("mouseenter", () => {
+      text.textContent = fingerMessages[finger];
+      text_bot.textContent = fingerMessages[finger];
+      text_shadow.textContent = fingerMessages[finger];
+
+      if (!isReady) return;
       gsap.to(source['base']['obj'], {
         duration: 0.2,
         attr: { points: source['base']['stretch'] },
@@ -211,6 +274,11 @@
     });
 
     source['finger'].addEventListener("mouseleave", () => {
+      text.textContent = "Bram Stuyven";
+      text_bot.textContent = "Bram Stuyven";
+      text_shadow.textContent = "Bram Stuyven";
+
+      if (!isReady) return;
       gsap.to(source['base']['obj'], {
         duration: 0.2,
         attr: { points: source['base']['default'] },
@@ -224,8 +292,9 @@
     });
   }
 
+  let isReady = false;
   window.addEventListener("DOMContentLoaded", () => {
-    const hand = document.getElementById("hand"); // or "hand-group"
+    const hand = document.getElementById("hand");
 
     // Start with opacity 0
     gsap.set(hand, { opacity: 0 });
@@ -234,7 +303,10 @@
     gsap.to(hand, {
       duration: 3.5,
       opacity: 1,
-      ease: "power2.inOut"
+      ease: "power2.inOut",
+      onComplete: () => {
+        isReady = true;
+    }
     });
 
 
