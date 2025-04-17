@@ -1,9 +1,10 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+  <link href='https://fonts.googleapis.com/css?family=Ubuntu' rel='stylesheet'>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
   <meta charset="UTF-8">
-  <title>Polygon Hand</title>
+  <title>B.E.M.S.</title>
   <style>
 
     html, body {
@@ -11,6 +12,7 @@
       padding: 0;
       overflow: hidden;
       height: 100%;
+      font-family: 'Courier';
     }
 
     .container {
@@ -47,6 +49,30 @@
       cursor: pointer;
     }
 
+    #mobile-tip {
+      position: fixed;
+      bottom: 0.5vw;
+      left: 50%;
+      transform: translateX(-50%);
+      font-size: 2vw;
+      color: black;
+      padding: 1vw 1vw;
+      border-radius: 1vw;
+      z-index: 10;
+      pointer-events: none;
+      display: none;
+    }
+
+    #display {
+      position: fixed;
+      top: 0.5vw;
+      right: 0.5vw;
+      padding: 0.5vw;
+      z-index: 20;
+      font-size: 3vw;
+      pointer-events: none;
+    }
+
     .thumb { fill: #e54; stroke: #e54; }
     .index { fill: #e22; stroke: #e22; }
     .mid   { fill: #e33; stroke: #e33; }
@@ -69,6 +95,9 @@
         aspect-ratio: 1 / 1;
         display: block;
       }
+      #display {
+        max-width: 20vw;
+      }
     }
 
     /* mobile */
@@ -78,6 +107,12 @@
         height: 100vh;
         aspect-ratio: 1 / 1;
         display: block;
+      }
+      #mobile-tip {
+        display: block;
+      }
+      #display {
+        max-width: 95vw;
       }
     }
 
@@ -153,7 +188,7 @@
             keyTimes="0; 0.5; 1"
             keySplines="0.42 0 0.58 1; 0.42 0 0.58 1"/>
       </text>
-      
+
       <g id="text-wrapper" transform="scale(1, 0.5)">
         <text x="630" y="1100" text-anchor="middle" font-size="60" fill="black">
           <tspan id="main-text-shadow">Bram Stuyven</tspan>
@@ -169,6 +204,10 @@
         </text>
       </g>
     </svg>
+
+    <span id="mobile-tip">[Tap a finger]</span>
+
+    <div id="display"></div>
   </div>
   
 
@@ -324,6 +363,80 @@
         attr: { points: source['tip']['default'] },
         ease: "power2.out",
         delay: 0.2
+      });
+    }
+
+    /* DISPLAY SECTION ---------------------------------------------------------- */
+    const display = document.getElementById("display");
+    let displayed = "none"
+  
+    const displays = {
+      thumb: {
+        element: document.getElementById("thumb"),
+        text: "Thumb:\nMy CV will come here",
+        locked: false
+      },
+      index: {
+        element: document.getElementById("index"),
+        text: "Index finger:\nMy goals in life",
+        locked: false
+      },
+      middle: {
+        element: document.getElementById("middle"),
+        text: "Midde finger:\nMaybe a sction about my music",
+        locked: false
+      },
+      ring: {
+        element: document.getElementById("ring"),
+        text: "Ring finger:\nI love Theatre",
+        locked: false
+      },
+      pinky: {
+        element: document.getElementById("pinky"),
+        text: "Pinky finger:\nSome other stuff will appear here",
+        locked: false
+      }
+    };
+
+    for (const [name, data] of Object.entries(displays)) {
+      const el = data.element;
+
+      el.addEventListener("mouseenter", () => {
+        if (!data.locked) {
+          display.textContent = data.text;
+        }
+      });
+
+      el.addEventListener("mouseleave", () => {
+        if (!data.locked) {
+          display.textContent = "";
+        }
+      });
+
+      el.addEventListener("click", () => {
+        if (!data.locked) {
+
+          // keep track of who is locked in
+          displayed = name
+
+          // Lock other fingers
+          for (const [otherName, otherData] of Object.entries(displays)) {
+            otherData.locked = true;
+          }
+
+        } else {
+
+          if (displayed === name) {
+            // Unlock other fingers
+            for (const [otherName, otherData] of Object.entries(displays)) {
+              otherData.locked = false;
+              display.textContent = data.text;
+            }
+          } else {
+            display.textContent = data.text;
+            displayed = name
+          }
+        }
       });
     }
   });
