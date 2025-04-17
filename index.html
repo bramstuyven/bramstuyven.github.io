@@ -9,14 +9,14 @@
     html, body {
       margin: 0;
       padding: 0;
-      overflow: hidden; /* No scrollbars ever */
+      overflow: hidden;
       height: 100%;
     }
 
     .container {
       display: flex;
-      justify-content: center;  /* horizontal center */
-      align-items: center;      /* vertical center */
+      justify-content: center;
+      align-items: center;
       height: 100vh;
       width: 100vw;
       overflow: hidden;
@@ -31,7 +31,7 @@
       background: rgba(255, 255, 255, 0.8);
       padding: 0.3em 0.6em;
       border-radius: 0.5em;
-      pointer-events: none; /* so it doesn't interfere with hovers */
+      pointer-events: none;
     }
 
     svg {
@@ -62,7 +62,7 @@
     }
 
     /* desktop */
-    @media (min-width: 800px) {
+    @media (min-width: 1000px) {
       svg {
         height: auto;
         width: 100vw;
@@ -72,7 +72,7 @@
     }
 
     /* mobile */
-    @media (max-width: 799px) {
+    @media (max-width: 999px) {
       svg {
         width: auto;
         height: 100vh;
@@ -86,38 +86,38 @@
 <body>
 
   <div class="container">
-    <svg viewBox="-200 -400 1500 1800" xmlns="http://www.w3.org/2000/svg"> <!--1250,1000 for desktop, 1000,1250 for phone-->
+    <svg id="hand" viewBox="-200 -400 1500 1800" xmlns="http://www.w3.org/2000/svg"> <!--1250,1000 for desktop, 1000,1250 for phone-->
       <!-- Arm -->
       <polygon id="arm" class="arm" points="885,620 2100,1800 1750,2100 640,740" />
 
+      <!-- Thumb -->
+      <g id="thumb" class="hover-group">
+        <polygon id="thumb-base" class="thumb" points="830,500 670,430 645,330 710,270" />
+        <polygon id="thumb-tip" class="thumb" points="710,270 645,330 560,285 560,240" />
+      </g>
+      
       <!-- Index Finger -->
       <g id="index" class="hover-group">
-        <polygon id="index-base" class="index" points="570,420 445,515 365,330 430,315" />
-        <polygon id="index-tip" class="index" points="430,315 365,330 315,180 355,165" />
+        <polygon id="index-base" class="index" points="570,420 445,515 450,280 515,300" />
+        <polygon id="index-tip" class="index" points="515,300 450,280 540,140 575,160" />
       </g>
 
       <!-- Middle Finger -->
       <g id="middle" class="hover-group">
-        <polygon id="middle-base" class="mid" points="490,454 420,585 230,420 275,370" />
-        <polygon id="middle-tip" class="mid" points="275,370 230,420 130,250 170,230" />
+        <polygon id="middle-base" class="mid" points="490,454 420,585 350,320 425,330" />
+        <polygon id="middle-tip" class="mid" points="425,330 350,320 435,160 470,180" />
       </g>
 
       <!-- Ring Finger -->
       <g id="ring" class="hover-group">
-        <polygon id="ring-base" class="ring" points="445,515 480,670 195,535 225,460" />
-        <polygon id="ring-tip" class="ring" points="225,460 195,535 75,360 110,335" />
+        <polygon id="ring-base" class="ring" points="445,515 400,650 280,420 350,400" />
+        <polygon id="ring-tip" class="ring" points="350,400 280,420 290,240 330,240" />
       </g>
 
       <!-- Pinky -->
       <g id="pinky" class="hover-group">
-        <polygon id="pinky-base" class="pinky" points="420,585 480,670 245,700 255,625" />
-        <polygon id="pinky-tip" class="pinky" points="255,625 245,700 100,590 135,560" />  
-      </g>
-
-      <!-- Thumb -->
-      <g id="thumb" class="hover-group">
-        <polygon id="thumb-base" class="thumb" points="830,500 670,430 645,315 750,290" />
-        <polygon id="thumb-tip" class="thumb" points="750,290 645,315 600,205 620,160" />
+        <polygon id="pinky-base" class="pinky" points="420,585 480,670 380,650 240,530 300,500" />
+        <polygon id="pinky-tip" class="pinky" points="300,500 240,530 220,350 260,350" />  
       </g>
 
       <!-- Palm -->
@@ -134,13 +134,11 @@
           "obj":document.getElementById("index-base"),
           "default":"570,420 445,515 365,330 430,315",
           "stretch":"570,420 445,515 350,350 415,330",
-          "fist":"570,420 445,515 365,330 430,315",
         },
         "tip":{
           "obj":document.getElementById("index-tip"),
           "default":"430,315 365,330 315,180 355,165",
           "stretch":"415,330 350,350 275,205 315,185",
-          "fist":"430,315 365,330 315,180 355,165",
         },
      },
      "middle":{
@@ -149,13 +147,11 @@
           "obj":document.getElementById("middle-base"),
           "default":"490,454 420,585 230,420 275,370",
           "stretch":"490,454 420,585 220,430 265,380",
-          "fist":"490,454 420,585 220,430 275,370",
         },
         "tip":{
           "obj":document.getElementById("middle-tip"),
           "default":"275,370 230,420 130,250 170,230",
           "stretch":"265,380 220,430 100,290 135,265",
-          "fist":"275,370 220,430 130,250 170,230",
         },
      },
      "ring":{
@@ -164,43 +160,37 @@
           "obj":document.getElementById("ring-base"),
           "default":"445,515 480,670 195,535 225,460",
           "stretch":"445,515 480,670 185,555 215,480",
-          "fist":"445,515 480,670 185,555 215,480",
         },
         "tip":{
           "obj":document.getElementById("ring-tip"),
           "default":"225,460 195,535 75,360 110,335",
           "stretch":"215,480 185,555 40,420 65,385",
-          "fist":"215,480 185,555 40,420 65,385",
         },
      },
      "pinky":{
         "finger":document.getElementById("pinky"),
         "base":{
           "obj":document.getElementById("pinky-base"),
-          "default":"420,585 480,670 245,700 255,625",
-          "stretch":"420,585 480,670 245,710 255,635",
-          "fist":"420,585 480,670 245,710 255,635",
+          "default":"420,585 480,670 400,680 245,700 255,625",
+          "stretch":"420,585 480,670 400,685 245,710 255,635",
         },
         "tip":{
           "obj":document.getElementById("pinky-tip"),
           "default":"255,625 245,700 100,590 135,560",
           "stretch":"255,635 245,710 90,650 105,610",
-          "fist":"255,635 245,710 90,650 105,610",
         },
      },
      "thumb":{
         "finger":document.getElementById("thumb"),
         "base":{
           "obj":document.getElementById("thumb-base"),
-          "default":"830,500 670,430 645,315 750,290",
-          "stretch":"830,500 670,430 670,310 770,285",
-          "fist":"830,500 670,430 670,310 770,285",
+          "default":"830,500 670,430 670,315 750,290",
+          "stretch":"830,500 670,430 685,310 770,285",
         },
         "tip":{
           "obj":document.getElementById("thumb-tip"),
-          "default":"750,290 645,315 600,205 620,160",
-          "stretch":"770,285 670,310 680,165 720,135",
-          "fist":"770,285 670,310 680,165 720,135",
+          "default":"750,290 670,315 640,215 655,170",
+          "stretch":"770,285 685,310 685,185 725,145",
         },
      }
   };
@@ -233,4 +223,36 @@
       });
     });
   }
+
+  window.addEventListener("DOMContentLoaded", () => {
+    const hand = document.getElementById("hand"); // or "hand-group"
+
+    // Start with opacity 0
+    gsap.set(hand, { opacity: 0 });
+
+    // Fade in
+    gsap.to(hand, {
+      duration: 3.5,
+      opacity: 1,
+      ease: "power2.inOut"
+    });
+
+
+    for (const [finger, source] of Object.entries(fingers)) {
+      // Initial animation when the page loads
+      gsap.to(source['base']['obj'], {
+        duration: 3.5,
+        attr: { points: source['base']['default'] },
+        ease: "power2.out",
+        delay: 0.2
+      });
+
+      gsap.to(source['tip']['obj'], {
+        duration: 3.5,
+        attr: { points: source['tip']['default'] },
+        ease: "power2.out",
+        delay: 0.2
+      });
+    }
+  });
 </script>
