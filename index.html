@@ -5,11 +5,20 @@
   <meta charset="UTF-8">
   <title>Polygon Hand</title>
   <style>
+
+    html, body {
+      margin: 0;
+      padding: 0;
+      overflow: hidden; /* No scrollbars ever */
+      height: 100%;
+      width: 100%;
+    }
+
     svg {
-      width: 800px;
-      height: 800px;
-      background-color: #fff;
-      font-family: sans-serif;
+      width: 100vw;
+      height: auto;
+      aspect-ratio: 1 / 1;
+      display: block;
     }
 
     polygon {
@@ -32,47 +41,65 @@
       stroke: #ff7f50;
     }
 
+    /*
+    /* desktop 
+    @media (min-width: 800px) {
+      svg {
+        height: 100vh;
+        width: auto;
+      }
+    }
+
+    /* mobile 
+    @media (max-width: 799px) {
+      svg {
+        width: 100vw;
+        height: auto;
+      }
+    }
+      */
+
   </style>
 </head>
 <body>
+    <svg viewBox="-300 0 1800 1800" xmlns="http://www.w3.org/2000/svg"> <!--1250,1000 for desktop, 1000,1250 for phone-->
+      <!-- Arm -->
+      <polygon id="arm" class="arm" points="885,620 1750,1500 1500,1750 640,740" />
 
-<svg viewBox="0 0 1000 1000"> <!--1250,1000 for desktop, 1000,1250 for phone-->
-  <!-- Arm -->
-  <polygon id="arm" class="arm" points="885,620 1250,1000 1000,1250 640,740" />
+      <!-- Index Finger -->
+      <g id="index" class="hover-group">
+        <polygon id="index-base" class="index" points="570,420 445,515 365,330 430,315" />
+        <polygon id="index-tip" class="index" points="430,315 365,330 315,180 355,165" />
+      </g>
 
-  <!-- Index Finger -->
-  <g id="index" class="hover-group">
-    <polygon id="index-base" class="index" points="570,420 445,515 365,330 430,315" />
-    <polygon id="index-tip" class="index" points="430,315 365,330 315,180 355,165" />
-  </g>
+      <!-- Middle Finger -->
+      <g id="middle" class="hover-group">
+        <polygon id="middle-base" class="mid" points="490,454 420,585 230,420 275,370" />
+        <polygon id="middle-tip" class="mid" points="275,370 230,420 130,250 170,230" />
+      </g>
 
-  <!-- Middle Finger -->
-  <g id="middle" class="hover-group">
-    <polygon id="middle-base" class="mid" points="490,454 420,585 230,420 275,370" />
-    <polygon id="middle-tip" class="mid" points="275,370 230,420 130,250 170,230" />
-  </g>
+      <!-- Ring Finger -->
+      <g id="ring" class="hover-group">
+        <polygon id="ring-base" class="ring" points="445,515 480,670 195,535 225,460" />
+        <polygon id="ring-tip" class="ring" points="225,460 195,535 75,360 110,335" />
+      </g>
 
-  <!-- Ring Finger -->
-  <g id="ring" class="hover-group">
-    <polygon id="ring-base" class="ring" points="445,515 480,670 195,535 225,460" />
-    <polygon id="ring-tip" class="ring" points="225,460 195,535 75,360 110,335" />
-  </g>
+      <!-- Pinky -->
+      <g id="pinky" class="hover-group">
+        <polygon id="pinky-base" class="pinky" points="420,585 480,670 245,700 255,625" />
+        <polygon id="pinky-tip" class="pinky" points="255,625 245,700 100,590 135,560" />  
+      </g>
 
-  <!-- Pinky -->
-  <g id="pinky" class="hover-group">
-    <polygon id="pinky-base" class="pinky" points="420,585 480,670 245,700 255,625" />
-    <polygon id="pinky-tip" class="pinky" points="255,625 245,700 100,590 135,560" />  
-  </g>
+      <!-- Thumb -->
+      <g id="thumb" class="hover-group">
+        <polygon id="thumb-base" class="thumb" points="830,500 670,430 645,315 750,290" />
+        <polygon id="thumb-tip" class="thumb" points="750,290 645,315 600,205 620,160" />
+      </g>
 
-  <!-- Thumb -->
-  <g id="thumb" class="hover-group">
-    <polygon id="thumb-base" class="thumb" points="830,500 670,430 645,315 750,290" />
-    <polygon id="thumb-tip" class="thumb" points="750,290 645,315 600,205 620,160" />
-  </g>
-
-  <!-- Palm -->
-  <polygon id="palm" class="palm" points="885,620 640,740 480,670 420,585 445,515 490,454 570,420 670,430 830,500" />
-</svg>
+      <!-- Palm -->
+      <polygon id="palm" class="palm" points="885,620 640,740 480,670 420,585 445,515 490,454 570,420 670,430 830,500" />
+    </svg>
+  
 
 <script>
   fingers={
