@@ -11,7 +11,27 @@
       padding: 0;
       overflow: hidden; /* No scrollbars ever */
       height: 100%;
-      width: 100%;
+    }
+
+    .container {
+      display: flex;
+      justify-content: center;  /* horizontal center */
+      align-items: center;      /* vertical center */
+      height: 100vh;
+      width: 100vw;
+      overflow: hidden;
+    }
+
+    .palm-text {
+      position: absolute;
+      top: 55%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      font-size: 1.5rem;
+      background: rgba(255, 255, 255, 0.8);
+      padding: 0.3em 0.6em;
+      border-radius: 0.5em;
+      pointer-events: none; /* so it doesn't interfere with hovers */
     }
 
     svg {
@@ -41,30 +61,34 @@
       stroke: #ff7f50;
     }
 
-    /*
-    /* desktop 
+    /* desktop */
     @media (min-width: 800px) {
       svg {
-        height: 100vh;
-        width: auto;
+        height: auto;
+        width: 100vw;
+        aspect-ratio: 1 / 1;
+        display: block;
       }
     }
 
-    /* mobile 
+    /* mobile */
     @media (max-width: 799px) {
       svg {
-        width: 100vw;
-        height: auto;
+        width: auto;
+        height: 100vh;
+        aspect-ratio: 1 / 1;
+        display: block;
       }
     }
-      */
 
   </style>
 </head>
 <body>
-    <svg viewBox="-300 0 1800 1800" xmlns="http://www.w3.org/2000/svg"> <!--1250,1000 for desktop, 1000,1250 for phone-->
+
+  <div class="container">
+    <svg viewBox="-200 -400 1500 1800" xmlns="http://www.w3.org/2000/svg"> <!--1250,1000 for desktop, 1000,1250 for phone-->
       <!-- Arm -->
-      <polygon id="arm" class="arm" points="885,620 1750,1500 1500,1750 640,740" />
+      <polygon id="arm" class="arm" points="885,620 2100,1800 1750,2100 640,740" />
 
       <!-- Index Finger -->
       <g id="index" class="hover-group">
@@ -99,6 +123,7 @@
       <!-- Palm -->
       <polygon id="palm" class="palm" points="885,620 640,740 480,670 420,585 445,515 490,454 570,420 670,430 830,500" />
     </svg>
+  </div>
   
 
 <script>
